@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS llibre (
+    id_llibre INT AUTO_INCREMENT PRIMARY KEY,
+    titol VARCHAR(255) NOT NULL,
+    autor VARCHAR(255) NOT NULL,
+    editorial VARCHAR(255) NOT NULL,
+    datapublicacio DATE NOT NULL,
+    tematica VARCHAR(255) NOT NULL,
+    ISBN VARCHAR(255) NOT NULL
+);
