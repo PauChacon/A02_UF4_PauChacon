@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llistat de llibres</title>
+</head>
+<body>
+    <h3>Usuari connectat: <span th:text="${usuaris.usuari}"></span></h3>
+
+    <center>
+        <h1>Llista de llibres</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>ISBN</th>
+                    <th>Títol</th>
+                    <th>Editorial</th>
+                    <th>Data de publicació</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${llibres.empty}">
+                    <td colspan="5">No hi ha llibres disponibles</td>
+                </tr>
+                <tr th:each="llibre : ${llibres}">
+                    <td th:text="${llibre.idLlibre}"></td>
+                    <td th:text="${llibre.isbn}"></td>
+                    <td th:text="${llibre.titol}"></td>
+                    <td th:text="${llibre.editorial}"></td>
+                    <td th:text="${llibre.dataPublicacio}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p><a href="/llibres/index">Tornar enrere</a></p>
+    </center>
+</body>
+</html>

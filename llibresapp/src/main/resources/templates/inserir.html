@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir un llibre</title>
+</head>
+<body>
+    <h3>Usuari connectat: <span th:text="${usuaris.usuari}"></span></h3>
+
+    <center>
+        <h1>Inserir un nou llibre</h1>
+        <form action="/llibres/inserir" method="post">
+            <label>ISBN:</label>
+            <input type="text" name="isbn" required><br><br>
+
+            <label>Títol:</label>
+            <input type="text" name="titol" required><br><br>
+
+            <label>Editorial:</label>
+            <input type="text" name="editorial" required><br><br>
+
+            <label>Data de publicació:</label>
+            <input type="date" name="dataPublicacio" required><br><br>
+
+            <input type="submit" value="Afegir llibre">
+        </form>
+
+        <p><a href="/llibres/index">Tornar enrere</a></p>
+    </center>
+</body>
+</html>

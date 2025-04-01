@@ -6,10 +6,12 @@ import java.util.Set;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.iticbcn.mywebapp.llibresapp.Model.Llibre;
 import com.iticbcn.mywebapp.llibresapp.Model.Usuaris;
@@ -53,11 +55,36 @@ public String home() {
         return "index";
     }
 
-    @GetMapping
-    public Set<Llibre> getAllLlibres() {
-        return llibreService.getAllLlibres();
+    @GetMapping("/consulta")
+public String consultaLlibres(Model model) {
+    Set<Llibre> llibres = llibreService.getAllLlibres();
+    model.addAttribute("llibres", llibres);
+    model.addAttribute("usuaris", new Usuaris("admin", "1234")); 
+    return "llistat"; 
+}
+
+
+@GetMapping("/inserir")
+    public String mostrarFormulariInsercio(Model model) {
+        model.addAttribute("llibre", new Llibre());
+        model.addAttribute("usuaris", new Usuaris("admin", "1234")); 
+        return "inserir";
     }
 
+    @PostMapping("/inserir")
+    public String inserirLlibre(@ModelAttribute Llibre llibre) {
+        llibreService.saveLlibre(llibre);
+        return "redirect:/llibres/consulta";  
+    }
+
+    @GetMapping("/cerca")
+    public String cercaLlibrePerTitol(@RequestParam String titol, Model model) {
+        Set<Llibre> llibres = llibreService.findByTitol(titol);
+        model.addAttribute("llibres", llibres);
+        return "cercaLlibre";
+    }
+
+    
     @GetMapping("/{id}")
     public Optional<Llibre> getLlibreById(@PathVariable Long id) {
         return llibreService.findByIdLlibre(id);

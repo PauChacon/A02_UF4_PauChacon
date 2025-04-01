@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerca per Títol</title>
+</head>
+<body>
+
+    <h3>Usuari connectat: <span th:text="${usuaris.usuari}"></span></h3>
+
+    <center>
+        <h1>Cerca un llibre per títol</h1>
+
+        <form action="/llibres/cerca" method="get">
+            <label for="titol">Buscar por Título:</label>
+            <input type="text" id="titol" name="titol" placeholder="Introduce el título">
+            <button type="submit">Buscar</button>
+        </form>
+        
+
+        <!-- Mostrar los libros encontrados -->
+        <div th:if="${llibres != null}">
+            <h2>Llista de llibres trobats</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>IdLlibre</th>
+                        <th>Títol</th>
+                        <th>Autor</th>
+                        <th>Editorial</th>
+                        <th>Data d'edició</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${llibres.empty}">
+                        <td colspan="5">No hi ha llibres disponibles amb aquest títol</td>
+                    </tr>
+                    <tr th:each="llibre : ${llibres}">
+                        <td><span th:text="${llibre.idLlibre}"></span></td>
+                        <td><span th:text="${llibre.titol}"></span></td>
+                        <td><span th:text="${llibre.autor}"></span></td>
+                        <td><span th:text="${llibre.editorial}"></span></td>
+                        <td><span th:text="${llibre.dataPublicacio}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><a href="/index">Tornar enrere</a></p>
+    </center>
+</body>
+</html>

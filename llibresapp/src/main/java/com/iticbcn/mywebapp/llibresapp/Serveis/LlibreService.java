@@ -1,45 +1,21 @@
 package com.iticbcn.mywebapp.llibresapp.Serveis;
 
-import com.iticbcn.mywebapp.llibresapp.Model.Llibre;
-import com.iticbcn.mywebapp.llibresapp.Repositoris.LlibreRepository;
-import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Pattern;
 
-@Service
-public class LlibreService {
-    private final LlibreRepository llibreRepository;
+import com.iticbcn.mywebapp.llibresapp.Model.Llibre;
 
-    public LlibreService(LlibreRepository llibreRepository) {
-        this.llibreRepository = llibreRepository;
-    }
+public interface LlibreService {
 
-    public Set<Llibre> getAllLlibres() {
-        return llibreRepository.findAll();
-    }
+    Set<Llibre> getAllLlibres();
 
-    public Optional<Llibre> findByIdLlibre(Long id) {
-        return llibreRepository.findById(id);
-    }
+    Optional<Llibre> findByIdLlibre(Long id);
 
-    public Llibre findByTitol(String titol) {
-        return llibreRepository.findByTitol(titol);
-    }
+    Set<Llibre> findByTitol(String titol);
 
-    public Set<Llibre> findByTitolAndEditorial(String titol, String editorial) {
-        return llibreRepository.findByTitolAndEditorial(titol, editorial);
-    }
+    Set<Llibre> findByTitolAndEditorial(String titol, String editorial);
 
-    public boolean isValidISBN(String isbn) {
-        return Pattern.matches("\\d{3}-\\d{10}", isbn);
-    }
+    boolean isValidISBN(String isbn);
 
-    public void saveLlibre(Llibre llibre) {
-        if (isValidISBN(llibre.getIsbn())) {
-            llibreRepository.save(llibre);
-        } else {
-            throw new IllegalArgumentException("ISBN no válido");
-        }
-    }
+    void saveLlibre(Llibre llibre);
 }
